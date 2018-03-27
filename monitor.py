@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # @Author: yangwei
 # @Date:   2018-03-27 14:22:43
-# @Last Modified by:   yangwei
-# @Last Modified time: 2018-03-27 15:33:42
+# @Last Modified by:   uevol
+# @Last Modified time: 2018-03-27 15:47:47
 
 import os
+import sys
 import tailer
 
 from pymongo import MongoClient
@@ -62,13 +63,17 @@ def ProcessLog(follower):
             tradeStatus = ': '.join(arr1[2:-2])
             tradeDuration = arr1[-1]
             tradeInfo = {'tradeTime': tradeTime, 'tradeNo': tradeNo, 'tradeStatus': tradeStatus, 'tradeDuration': tradeDuration}
-            print(tradeInfo)
+            # print(tradeInfo)
             Mconnect.mongo.trade.tradeRecord.insert_one(tradeInfo)
         else:
             pass
 
 if __name__ == "__main__":
-    file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'example_log', 'nohup.out')
+    if len(sys.argv) == 2:
+        file = sys.argv[1]
+    else:
+        print('user example log for testing')
+        file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'example_log', 'nohup.out')
     mytailer = MyTailer(file)
     ProcessLog(mytailer.follow)
 
