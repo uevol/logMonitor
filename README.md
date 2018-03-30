@@ -49,8 +49,9 @@ monitor脚本运行日志存放在logMonitor.log文件中
 
 ### 其他说明
 
-请自行提前安装mongodb数据库
+    1. 请自行提前安装mongodb数据库
 
+    2. 该脚本仅针对exampleData文件夹中的nohup.out日志格式，其他日志格式，请根据实际修改monitor.ProcessLog中的处理逻辑
 
 
 
