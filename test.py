@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: uevol
 # @Date:   2018-03-30 13:25:57
-# @Last Modified by:   uevol
-# @Last Modified time: 2018-03-30 15:08:54
+# @Last Modified by:   yangwei
+# @Last Modified time: 2018-04-08 17:29:56
 
 import os
 import time
@@ -16,4 +16,3 @@ with open(sampleLog, 'r') as f_sampleLog:
 		for line in f_sampleLog:
 			print(line)
 			f_testLog.write(line)
-			time.sleep(0.5)
