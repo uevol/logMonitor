@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: uevol
 # @Date:   2018-03-30 13:25:57
-# @Last Modified by:   yangwei
-# @Last Modified time: 2018-04-08 17:29:56
+# @Last Modified by:   uevol
+# @Last Modified time: 2018-04-09 10:59:31
 
 import os
 import time
@@ -12,7 +12,7 @@ sampleLog = os.path.join(dataDir, 'nohup.out')
 testLog = os.path.join(dataDir, 'test.log')
 
 with open(sampleLog, 'r') as f_sampleLog:
-	with open(testLog, 'a') as f_testLog:
-		for line in f_sampleLog:
-			print(line)
-			f_testLog.write(line)
+    with open(testLog, 'a') as f_testLog:
+      for line in f_sampleLog:
+          print(line)
+          f_testLog.write(line)

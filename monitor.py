@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: yangwei
 # @Date:   2018-03-27 14:22:43
-# @Last Modified by:   yangwei
-# @Last Modified time: 2018-04-08 17:57:58
+# @Last Modified by:   uevol
+# @Last Modified time: 2018-04-09 10:58:22
 
 import os
 import sys
@@ -91,18 +91,17 @@ class MySQL(object):
 def ProcessLog(myTailer, connect):
     try:
         for line in myTailer.follow:
-            if 'tradeFinish:' in line:
-                arr = line.split('tradeFinish:')
-                tradeTime = arr[0].split(' TRACE')[0]
-                arr1 = arr[1].split('：')
-                tradeNo = arr1[1]
-                tradeStatus = ': '.join(arr1[2:-2])
-                tradeDuration = arr1[-1]
+            if 'GH_MPMS_MONITOR' in line:
+                arr = line.split(' - ')
+                tradeTime = arr[0].split('[INFO ]')[0].strip('[]')
+                arr1 = arr[1].split('#')
+                tradeNo = arr1[0]
+                tradeDuration = arr1[-1].split('：[')[-1][:-4]
                 # tradeInfo = {'tradeTime': tradeTime, 'tradeNo': tradeNo, 'tradeStatus': tradeStatus, 'tradeDuration': tradeDuration}
                 # connect.mongo.trade.tradeRecord.insert_one(tradeInfo)
-                sql = "INSERT INTO tradeRecord (tradeTime, tradeNo, tradeStatus, tradeDuration)\
+                sql = "INSERT INTO tradeRecord (tradeTime, tradeNo, tradeDuration)\
                  VALUES (%s, %s, %s, %s)"
-                connect.execute(sql, (tradeTime, tradeNo, tradeStatus.decode('utf-8'), tradeDuration.decode('utf-8')))
+                connect.execute(sql, (tradeTime.decode('utf-8'), tradeNo.decode('utf-8'), tradeDuration.decode('utf-8')))
     except Exception as e:
         logger.error(str(e))
 
